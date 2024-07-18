@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F361612E2C49716B00D83822 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F361612D2C49712900D83822 /* SF-Pro.ttf */; };
+		F36908782C491A4500A7D41D /* PfofileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36908772C491A4500A7D41D /* PfofileViewController.swift */; };
 		F3AA02152C43B67C000AB45D /* ImageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AA02142C43B67C000AB45D /* ImageListCell.swift */; };
 		F3B46A9A2C38079C004E0DA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B46A992C38079C004E0DA2 /* AppDelegate.swift */; };
 		F3B46A9C2C38079C004E0DA2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B46A9B2C38079C004E0DA2 /* SceneDelegate.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F361612D2C49712900D83822 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
+		F36908772C491A4500A7D41D /* PfofileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PfofileViewController.swift; sourceTree = "<group>"; };
 		F3AA02142C43B67C000AB45D /* ImageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListCell.swift; sourceTree = "<group>"; };
 		F3B46A962C38079C004E0DA2 /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3B46A992C38079C004E0DA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +77,9 @@
 				F3B46A9F2C38079C004E0DA2 /* Main.storyboard */,
 				F3B46AA22C38079D004E0DA2 /* Assets.xcassets */,
 				F3B46AA42C38079D004E0DA2 /* LaunchScreen.storyboard */,
+				F361612D2C49712900D83822 /* SF-Pro.ttf */,
 				F3B46AA72C38079D004E0DA2 /* Info.plist */,
+				F36908772C491A4500A7D41D /* PfofileViewController.swift */,
 			);
 			path = ImageFeed;
 			sourceTree = "<group>";
@@ -137,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3B46AA62C38079D004E0DA2 /* LaunchScreen.storyboard in Resources */,
+				F361612E2C49716B00D83822 /* SF-Pro.ttf in Resources */,
 				F3B46AA32C38079D004E0DA2 /* Assets.xcassets in Resources */,
 				F3B46AA12C38079C004E0DA2 /* Main.storyboard in Resources */,
 			);
@@ -151,6 +158,7 @@
 			files = (
 				F3B46A9E2C38079C004E0DA2 /* ImagesListViewController.swift in Sources */,
 				F3AA02152C43B67C000AB45D /* ImageListCell.swift in Sources */,
+				F36908782C491A4500A7D41D /* PfofileViewController.swift in Sources */,
 				F3B46A9A2C38079C004E0DA2 /* AppDelegate.swift in Sources */,
 				F3B46A9C2C38079C004E0DA2 /* SceneDelegate.swift in Sources */,
 			);
