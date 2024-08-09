@@ -9,12 +9,6 @@ import UIKit
 
 class PfofileViewController: UIViewController {
     
-    @IBOutlet private var photoImageView: UIImageView!
-    @IBOutlet private var emailLabel1: UILabel!
-    @IBOutlet private var nameLabel: UILabel!
-    @IBOutlet private var informationLabel: UILabel!
-    @IBOutlet private var exitButton: UIButton!
-    
     private var profileImageView: UIImageView?
     private var fullNameLabel: UILabel?
     private var emailLabel: UILabel?
