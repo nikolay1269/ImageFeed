@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F361612E2C49716B00D83822 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F361612D2C49712900D83822 /* SF-Pro.ttf */; };
-		F36908782C491A4500A7D41D /* PfofileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36908772C491A4500A7D41D /* PfofileViewController.swift */; };
 		F3AA02152C43B67C000AB45D /* ImageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AA02142C43B67C000AB45D /* ImageListCell.swift */; };
 		F3B46A9A2C38079C004E0DA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B46A992C38079C004E0DA2 /* AppDelegate.swift */; };
 		F3B46A9C2C38079C004E0DA2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B46A9B2C38079C004E0DA2 /* SceneDelegate.swift */; };
@@ -16,11 +15,12 @@
 		F3B46AA12C38079C004E0DA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3B46A9F2C38079C004E0DA2 /* Main.storyboard */; };
 		F3B46AA32C38079D004E0DA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3B46AA22C38079D004E0DA2 /* Assets.xcassets */; };
 		F3B46AA62C38079D004E0DA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3B46AA42C38079D004E0DA2 /* LaunchScreen.storyboard */; };
+		F3D783282C5147B200E24228 /* PfofileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D783272C5147B200E24228 /* PfofileViewController.swift */; };
+		F3D7832B2C5147DB00E24228 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7832A2C5147DB00E24228 /* SingleImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F361612D2C49712900D83822 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
-		F36908772C491A4500A7D41D /* PfofileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PfofileViewController.swift; sourceTree = "<group>"; };
 		F3AA02142C43B67C000AB45D /* ImageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListCell.swift; sourceTree = "<group>"; };
 		F3B46A962C38079C004E0DA2 /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3B46A992C38079C004E0DA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +30,8 @@
 		F3B46AA22C38079D004E0DA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3B46AA52C38079D004E0DA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3B46AA72C38079D004E0DA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3D783272C5147B200E24228 /* PfofileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PfofileViewController.swift; sourceTree = "<group>"; };
+		F3D7832A2C5147DB00E24228 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,8 @@
 		F3B46A982C38079C004E0DA2 /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				F3D783292C5147BA00E24228 /* SingleImageView */,
+				F3D783262C51476300E24228 /* Profile */,
 				F3AA02162C43B967000AB45D /* ImageList */,
 				F3B46A992C38079C004E0DA2 /* AppDelegate.swift */,
 				F3B46A9B2C38079C004E0DA2 /* SceneDelegate.swift */,
@@ -79,9 +83,24 @@
 				F3B46AA42C38079D004E0DA2 /* LaunchScreen.storyboard */,
 				F361612D2C49712900D83822 /* SF-Pro.ttf */,
 				F3B46AA72C38079D004E0DA2 /* Info.plist */,
-				F36908772C491A4500A7D41D /* PfofileViewController.swift */,
 			);
 			path = ImageFeed;
+			sourceTree = "<group>";
+		};
+		F3D783262C51476300E24228 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F3D783272C5147B200E24228 /* PfofileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		F3D783292C5147BA00E24228 /* SingleImageView */ = {
+			isa = PBXGroup;
+			children = (
+				F3D7832A2C5147DB00E24228 /* SingleImageViewController.swift */,
+			);
+			path = SingleImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,8 +177,9 @@
 			files = (
 				F3B46A9E2C38079C004E0DA2 /* ImagesListViewController.swift in Sources */,
 				F3AA02152C43B67C000AB45D /* ImageListCell.swift in Sources */,
-				F36908782C491A4500A7D41D /* PfofileViewController.swift in Sources */,
+				F3D783282C5147B200E24228 /* PfofileViewController.swift in Sources */,
 				F3B46A9A2C38079C004E0DA2 /* AppDelegate.swift in Sources */,
+				F3D7832B2C5147DB00E24228 /* SingleImageViewController.swift in Sources */,
 				F3B46A9C2C38079C004E0DA2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
