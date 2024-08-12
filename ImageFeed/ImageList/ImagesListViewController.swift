@@ -30,6 +30,7 @@ class ImagesListViewController: UIViewController {
             cell.photoImageView.image = image
         }
         cell.dateLabel.text = dateFormatter.string(from: Date())
+        cell.dateLabel.setTextSpacingBy(value: -0.08)
         if indexPath.row % 2 == 0 {
             cell.likeButton.setImage(UIImage(named: "Favorite_active"), for: .normal)
         } else {
