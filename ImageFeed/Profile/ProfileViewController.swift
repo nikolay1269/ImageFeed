@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PfofileViewController: UIViewController {
+class ProfileViewController: UIViewController {
     
     private var profileImageView: UIImageView?
     private var fullNameLabel: UILabel?
@@ -53,7 +53,7 @@ class PfofileViewController: UIViewController {
         view.addSubview(fullNameLabel)
         fullNameLabel.text = "Екатерина Новикова"
         fullNameLabel.textColor = UIColor(named: "YPWhite")
-        fullNameLabel.font = UIFont(name: "SF Pro Regular", size: 23)
+        fullNameLabel.font = UIFont(name: "SF Pro Bold", size: 23)
         fullNameLabel.setTextSpacingBy(value: -0.08)
         if let profileImageView = profileImageView {
             fullNameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8).isActive = true
