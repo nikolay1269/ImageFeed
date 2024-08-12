@@ -52,22 +52,24 @@ class PfofileViewController: UIViewController {
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(fullNameLabel)
         fullNameLabel.text = "Екатерина Новикова"
-        fullNameLabel.textColor = .white
+        fullNameLabel.textColor = UIColor(named: "YPWhite")
         fullNameLabel.font = UIFont(name: "SF Pro Regular", size: 23)
+        fullNameLabel.setTextSpacingBy(value: -0.08)
         if let profileImageView = profileImageView {
             fullNameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8).isActive = true
             fullNameLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor).isActive = true
         }
         return fullNameLabel
     }
-    
+
     private func addEmailLabel() -> UILabel {
         let emailLabel = UILabel()
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emailLabel)
         emailLabel.text = "@ekaterina_nov"
-        emailLabel.textColor = .white
+        emailLabel.textColor = UIColor(named: "YPGray")
         emailLabel.font = UIFont(name: "SF Pro Regular", size: 13)
+
         if let fullNameLabel = fullNameLabel {
             emailLabel.topAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 8).isActive = true
             emailLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor).isActive = true
@@ -80,7 +82,7 @@ class PfofileViewController: UIViewController {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionLabel)
         descriptionLabel.text = "Hello, world!"
-        descriptionLabel.textColor = .white
+        descriptionLabel.textColor = UIColor(named: "YPWhite")
         descriptionLabel.font = UIFont(name: "SF Pro Regular", size: 13)
         if let emailLabel = emailLabel {
             descriptionLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8).isActive = true
