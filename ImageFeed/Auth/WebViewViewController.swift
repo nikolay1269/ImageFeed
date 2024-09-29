@@ -57,7 +57,7 @@ final class WebViewViewController: UIViewController {
         webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress))
     }
     
-    @IBAction func didTapBackButton() {
+    @IBAction private func didTapBackButton() {
         delegate?.webViewViewControllerDidCancel(self)
     }
     
@@ -92,9 +92,9 @@ extension WebViewViewController: WKNavigationDelegate {
         
         if let url = navigationAction.request.url,
            let urlComponents = URLComponents(string: url.absoluteString),
-           urlComponents.path == "/oauth/authorize/native",
+           urlComponents.path == Constants.authorizeURL,
            let items = urlComponents.queryItems,
-           let codeItem = items.first(where: { $0.name == "code"}) {
+           let codeItem = items.first(where: { $0.name == Constants.codeFieldName}) {
             return codeItem.value
         } else {
             return nil
