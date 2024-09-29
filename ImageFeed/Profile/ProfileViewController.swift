@@ -7,24 +7,9 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     
-    private var profileImageView: UIImageView?
-    private var fullNameLabel: UILabel?
-    private var emailLabel: UILabel?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        profileImageView = addImageView()
-        fullNameLabel = addFullNameLabel()
-        emailLabel = addEmailLabel()
-        addDescriptionLabel()
-        addExitButton()
-    }
-    
-    private func addImageView() -> UIImageView {
-        
+    private lazy var profileImageView: UIImageView? = {
         let imageView = UIImageView(image: UIImage(named: "TestUserPhoto"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
@@ -34,20 +19,9 @@ class ProfileViewController: UIViewController {
         let leadingAnchor = imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16)
         NSLayoutConstraint.activate([topAnchor, widthAnchor, heightAnchor, leadingAnchor])
         return imageView
-    }
+    }()
     
-    private func addExitButton() {
-        let exitButton = UIButton.systemButton(with: UIImage(named: "Exit") ?? UIImage(), target: self, action: #selector(exitButtonTapped))
-        exitButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(exitButton)
-        exitButton.tintColor = .red
-        view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: exitButton.trailingAnchor, constant: 16).isActive = true
-        if let profileImageView = profileImageView {
-            exitButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
-        }
-    }
-    
-    private func addFullNameLabel() -> UILabel {
+    private lazy var fullNameLabel: UILabel? = {
         let fullNameLabel = UILabel()
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(fullNameLabel)
@@ -60,9 +34,10 @@ class ProfileViewController: UIViewController {
             fullNameLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor).isActive = true
         }
         return fullNameLabel
-    }
-
-    private func addEmailLabel() -> UILabel {
+    }()
+    
+    
+    private lazy var emailLabel: UILabel? = {
         let emailLabel = UILabel()
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emailLabel)
@@ -75,6 +50,24 @@ class ProfileViewController: UIViewController {
             emailLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor).isActive = true
         }
         return emailLabel
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    
+        addDescriptionLabel()
+        addExitButton()
+    }
+    
+    private func addExitButton() {
+        let exitButton = UIButton.systemButton(with: UIImage(named: "Exit") ?? UIImage(), target: self, action: #selector(exitButtonTapped))
+        exitButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(exitButton)
+        exitButton.tintColor = .red
+        view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: exitButton.trailingAnchor, constant: 16).isActive = true
+        if let profileImageView = profileImageView {
+            exitButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+        }
     }
     
     private func addDescriptionLabel() {
