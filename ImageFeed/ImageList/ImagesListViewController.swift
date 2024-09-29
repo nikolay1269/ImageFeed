@@ -9,6 +9,7 @@ import UIKit
 
 class ImagesListViewController: UIViewController {
     
+    private let showSingleImageIdentifier = "ShowSingleImage"
     @IBOutlet private var tableView: UITableView!
     private let photosNames: [String] = Array(0..<20).map{ "\($0)" }
     
@@ -29,6 +30,7 @@ class ImagesListViewController: UIViewController {
             cell.photoImageView.image = image
         }
         cell.dateLabel.text = dateFormatter.string(from: Date())
+        cell.dateLabel.setTextSpacingBy(value: -0.08)
         if indexPath.row % 2 == 0 {
             cell.likeButton.setImage(UIImage(named: "Favorite_active"), for: .normal)
         } else {
@@ -62,12 +64,30 @@ extension ImagesListViewController: UITableViewDataSource {
         configCell(for: imageListCell, indexPath: indexPath)
         return imageListCell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == showSingleImageIdentifier {
+            guard
+                let viewcontroller = segue.destination as? SingleImageViewController,
+                let indexPath = sender as? IndexPath
+            else {
+                assertionFailure("Invalid segue destination")
+                return
+            }
+            
+            let image = UIImage(named: photosNames[indexPath.row])
+            viewcontroller.image = image
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
 }
 
 extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        performSegue(withIdentifier: showSingleImageIdentifier, sender: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
