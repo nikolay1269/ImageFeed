@@ -16,3 +16,7 @@ enum Constants {
     static let authorizeURL = "/oauth/authorize/native"
     static let codeFieldName = "code"
 }
+
+enum AuthServiceError: Error {
+    case invalidRequest
+}

@@ -14,9 +14,8 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if userIsLoggedIn() {
-            switchToTabbarController()
-            
+        if let token = OAuth2TokenStorage.shared.token {
+            fetchProfile(token)
         } else {
             performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
         }
@@ -29,10 +28,6 @@ final class SplashViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
-    }
-    
-    private func userIsLoggedIn() -> Bool {
-        return OAuth2TokenStorage.shared.token != nil
     }
     
     private func switchToTabbarController() {
@@ -73,6 +68,28 @@ extension SplashViewController: AuthViewControllerDelegate {
     
     func didAuthenticate(_ vc: AuthViewController) {
         vc.dismiss(animated: true)
-        switchToTabbarController()
+        
+        guard let token = OAuth2TokenStorage.shared.token else {
+            return
+        }
+        
+        fetchProfile(token)
+    }
+    
+    func fetchProfile(_ token: String) {
+        UIBlockingProgressHUD.show()
+        ProfileService.shared.fetchProfile(token) { [weak self] result in
+            
+            UIBlockingProgressHUD.dismiss()
+            guard let self = self else { return }
+            switch result {
+            case .success(let profile):
+                self.switchToTabbarController()
+                ProfileService.shared.profile = profile
+            case .failure(let error):
+                //TODO: Показать ошибку получения профиля
+                print(error)
+            }
+        }
     }
 }

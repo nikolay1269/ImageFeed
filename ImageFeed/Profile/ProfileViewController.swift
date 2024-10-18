@@ -9,7 +9,27 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
-    private lazy var profileImageView: UIImageView? = {
+    private var fullNameLabel: UILabel?
+    private var emailLabel: UILabel?
+    private var profileImageView: UIImageView?
+    private var descriptionLabel: UILabel?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    
+        profileImageView = addProfileImageView()
+        fullNameLabel = addFullNameLabel()
+        emailLabel = addEmailLabel()
+        descriptionLabel = addDescriptionLabel()
+        addExitButton()
+        if let profile = ProfileService.shared.profile {
+            updateProfileDetails(profile: profile)
+        } else {
+            print("Profile information is empty")
+        }
+    }
+    
+    private func addProfileImageView() -> UIImageView? {
         let imageView = UIImageView(image: UIImage(named: "TestUserPhoto"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
@@ -19,9 +39,9 @@ final class ProfileViewController: UIViewController {
         let leadingAnchor = imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16)
         NSLayoutConstraint.activate([topAnchor, widthAnchor, heightAnchor, leadingAnchor])
         return imageView
-    }()
+    }
     
-    private lazy var fullNameLabel: UILabel? = {
+    private func addFullNameLabel() -> UILabel? {
         let fullNameLabel = UILabel()
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(fullNameLabel)
@@ -34,10 +54,9 @@ final class ProfileViewController: UIViewController {
             fullNameLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor).isActive = true
         }
         return fullNameLabel
-    }()
+    }
     
-    
-    private lazy var emailLabel: UILabel? = {
+    private func addEmailLabel() -> UILabel? {
         let emailLabel = UILabel()
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emailLabel)
@@ -50,13 +69,6 @@ final class ProfileViewController: UIViewController {
             emailLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor).isActive = true
         }
         return emailLabel
-    }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    
-        addDescriptionLabel()
-        addExitButton()
     }
     
     private func addExitButton() {
@@ -70,7 +82,7 @@ final class ProfileViewController: UIViewController {
         }
     }
     
-    private func addDescriptionLabel() {
+    private func addDescriptionLabel() -> UILabel? {
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionLabel)
@@ -81,6 +93,16 @@ final class ProfileViewController: UIViewController {
             descriptionLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8).isActive = true
             descriptionLabel.leadingAnchor.constraint(equalTo: emailLabel.leadingAnchor).isActive = true
         }
+        return descriptionLabel
+    }
+    
+    private func updateProfileDetails(profile: Profile) {
+        
+        let profileService = ProfileService.shared
+        
+        self.fullNameLabel?.text = profile.name
+        self.emailLabel?.text = profile.loginName
+        self.descriptionLabel?.text = profile.bio
     }
     
     @IBAction private func exitButtonTapped() {}

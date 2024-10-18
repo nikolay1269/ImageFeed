@@ -10,6 +10,8 @@
 		F30D0E6C2C69EB8A00D99674 /* UILabel+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30D0E6B2C69EB8A00D99674 /* UILabel+Font.swift */; };
 		F30DEDF82C71CFFD0085F063 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30DEDF72C71CFFD0085F063 /* WebViewViewController.swift */; };
 		F33907102CC11C1B00C596AE /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339070F2CC11C1B00C596AE /* UIBlockingProgressHUD.swift */; };
+		F33907132CC1205C00C596AE /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33907122CC1205C00C596AE /* ProfileService.swift */; };
+		F33907152CC1221100C596AE /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33907142CC1221100C596AE /* Profile.swift */; };
 		F34B70322C6B8AA900FFD22E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34B70312C6B8AA900FFD22E /* Constants.swift */; };
 		F35957BB2C9899D500456B7D /* OAuth2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35957BA2C9899D500456B7D /* OAuth2Service.swift */; };
 		F361612E2C49716B00D83822 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F361612D2C49712900D83822 /* SF-Pro.ttf */; };
@@ -35,6 +37,8 @@
 		F30D0E6B2C69EB8A00D99674 /* UILabel+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Font.swift"; sourceTree = "<group>"; };
 		F30DEDF72C71CFFD0085F063 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		F339070F2CC11C1B00C596AE /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
+		F33907122CC1205C00C596AE /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		F33907142CC1221100C596AE /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		F34B70312C6B8AA900FFD22E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F35957BA2C9899D500456B7D /* OAuth2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Service.swift; sourceTree = "<group>"; };
 		F361612D2C49712900D83822 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
@@ -76,6 +80,14 @@
 				F3DFD8922CA032BF00ED5CF9 /* UISession+Data.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F33907112CC1203E00C596AE /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F33907122CC1205C00C596AE /* ProfileService.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		F3836BD12C6FA055007CB4D1 /* Auth */ = {
@@ -148,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				F3D783272C5147B200E24228 /* ProfileViewController.swift */,
+				F33907142CC1221100C596AE /* Profile.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -163,6 +176,7 @@
 		F3DF5F552CA5B30B0065B535 /* ServiceAccessLayer */ = {
 			isa = PBXGroup;
 			children = (
+				F33907112CC1203E00C596AE /* Profile */,
 				F3DF5F562CA5B3190065B535 /* OAuth */,
 			);
 			path = ServiceAccessLayer;
@@ -267,10 +281,12 @@
 				F3B46A9C2C38079C004E0DA2 /* SceneDelegate.swift in Sources */,
 				F3836BD32C6FA0A5007CB4D1 /* AuthViewController.swift in Sources */,
 				F3DFD8952CA03CB600ED5CF9 /* OAuthTokenResponseBody.swift in Sources */,
+				F33907132CC1205C00C596AE /* ProfileService.swift in Sources */,
 				F34B70322C6B8AA900FFD22E /* Constants.swift in Sources */,
 				F3DFD8972CA043CB00ED5CF9 /* OAuth2TokenStorage.swift in Sources */,
 				F3DFD8932CA032BF00ED5CF9 /* UISession+Data.swift in Sources */,
 				F3B6466A2C9ECFAA001B2034 /* NetworkClient.swift in Sources */,
+				F33907152CC1221100C596AE /* Profile.swift in Sources */,
 				F39FB2C82CA174CC004046FE /* SplashViewController.swift in Sources */,
 				F33907102CC11C1B00C596AE /* UIBlockingProgressHUD.swift in Sources */,
 			);
