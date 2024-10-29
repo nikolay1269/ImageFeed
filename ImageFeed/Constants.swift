@@ -20,3 +20,22 @@ enum Constants {
 enum AuthServiceError: Error {
     case invalidRequest
 }
+
+struct Queue<Element> {
+    var items: [Element] = []
+    
+    mutating func addToBack(_ item: Element) {
+        items.append(item)
+    }
+    
+    mutating func removeFront() -> Element {
+        return items.removeFirst()
+    }
+}
+
+extension Queue {
+    
+    var frontItem: Element? {
+        return items.isEmpty ? nil: items[0]
+    }
+}

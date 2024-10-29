@@ -41,42 +41,36 @@ final class ProfileService {
             if lastToken != token {
                 task?.cancel()
             } else {
+                print("[fetchProfile]: Dublicate request with the same token: \(token)")
                 completion(.failure(AuthServiceError.invalidRequest))
             }
         } else {
             if lastToken == token {
+                print("[fetchProfile]: Task is nil with the same token: \(token)")
                 completion(.failure(AuthServiceError.invalidRequest))
             }
         }
         lastToken = token
         guard let request = makeProfileRequest(authToken: token) else {
             
+            print("[fetchProfile]: Invalid request with token: \(token)")
             completion(.failure(AuthServiceError.invalidRequest))
             return
         }
         
-        let task = URLSession.shared.data(for: request) { [weak self] result in
-         
-            DispatchQueue.main.async {
-                switch(result) {
-                case .success(let data):
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        let dataStr = String(data: data, encoding: .utf8)
-                        let profileResult = try decoder.decode(ProfileResult.self, from: data)
-                        let profile = Profile(profileResult: profileResult)
-                        completion(.success(profile))
-                    } catch {
-                        completion(.failure(error))
-                    }
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-                self?.task = nil
-                self?.lastToken = nil
+        let task = URLSession.shared.objestTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
+            
+            switch(result) {
+            case .success(let profileResult):
+                let profile = Profile(profileResult: profileResult)
+                completion(.success(profile))
+            case .failure(let error):
+                completion(.failure(error))
             }
+            self?.task = nil
+            self?.lastToken = nil
         }
+        
         self.task = task
         task.resume()
     }

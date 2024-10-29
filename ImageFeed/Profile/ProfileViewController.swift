@@ -14,8 +14,49 @@ final class ProfileViewController: UIViewController {
     private var profileImageView: UIImageView?
     private var descriptionLabel: UILabel?
     
+    override init(nibName: String?, bundle: Bundle?) {
+        super.init(nibName: nibName, bundle: bundle)
+        addObserver()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        addObserver()
+    }
+    
+    deinit {
+        removeObserver()
+    }
+    
+    private func addObserver() {
+        NotificationCenter.default.addObserver(self, selector:
+                                                    #selector(updateAvatar(notification:)),
+                                                 name: ProfileImageService.didChangeNotification,
+                                                 object: nil)
+    }
+    
+    private func removeObserver() {
+        NotificationCenter.default.removeObserver(self, name: ProfileImageService.didChangeNotification, object: nil)
+    }
+    
+    @objc
+    private func updateAvatar(notification: Notification) {
+        guard
+            isViewLoaded,
+            let userInfo = notification.userInfo,
+            let profileImageURL = userInfo["URL"] as? String,
+            let url = URL(string: profileImageURL)
+        else { return }
+        //TODO [Sprint 11] Обновите аватар, используя Kingfisher
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let avatarURL = ProfileImageService.shared.avatarURL,
+           let url = URL(string: avatarURL) {
+            //TODO [Sprint 11] Обновите аватар, если нотификация была опубликована до того, как мы подписались
+        }
     
         profileImageView = addProfileImageView()
         fullNameLabel = addFullNameLabel()
@@ -97,8 +138,6 @@ final class ProfileViewController: UIViewController {
     }
     
     private func updateProfileDetails(profile: Profile) {
-        
-        let profileService = ProfileService.shared
         
         self.fullNameLabel?.text = profile.name
         self.emailLabel?.text = profile.loginName

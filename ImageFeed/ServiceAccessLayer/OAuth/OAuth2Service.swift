@@ -40,11 +40,13 @@ final class OAuth2Service {
             if lastCode != code {
                 task?.cancel()
             } else {
+                print("[fetchOAuthToken]: Dublicate request with same code: \(code)")
                 completion(.failure(AuthServiceError.invalidRequest))
                 return
             }
         } else {
             if lastCode == code {
+                print("[fetchOAuthToken]: Task is nil with the same code: \(code)")
                 completion(.failure(AuthServiceError.invalidRequest))
                 return
             }
@@ -53,29 +55,23 @@ final class OAuth2Service {
         guard
             let request = makeOAuthTokenRequest(code: code)
         else {
+            print("[fetchOAuthToken]: Invalid request with code: \(code)")
             completion(.failure(AuthServiceError.invalidRequest))
             return
         }
-        let task = URLSession.shared.data(for: request) { [weak self] result in
-            DispatchQueue.main.async {
-                
-                switch(result) {
-                case .success(let data):
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        let token = try decoder.decode(OAuthTokenResponseBody.self, from: data).accessToken
-                        completion(.success(token))
-                    } catch {
-                        completion(.failure(error))
-                    }
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-                self?.task = nil
-                self?.lastCode = nil
+        
+        let task = URLSession.shared.objestTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
+            
+            switch(result) {
+            case .success(let authResult):
+                completion(.success(authResult.accessToken))
+            case .failure(let error):
+                completion(.failure(error))
             }
+            self?.task = nil
+            self?.lastCode = nil
         }
+        
         self.task = task
         task.resume()
     }

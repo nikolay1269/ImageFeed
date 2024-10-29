@@ -31,17 +31,40 @@ extension URLSession {
                 if 200..<300 ~= statusCode {
                     fulfillCompetionOnMainThread(.success(data))
                 } else {
-                    print(String(data: data, encoding: .utf8) ?? "Error from server with code: \(statusCode)")
+                    print("[data]: NetworkError:\(String(data: data, encoding: .utf8) ?? "") response status \(statusCode)")
                     fulfillCompetionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
                 }
             } else if let error = error {
+                print("[data]: NetworkError: \(error.localizedDescription)")
                 fulfillCompetionOnMainThread(.failure(NetworkError.urlRequestError(error)))
             } else  {
-                print("URL Session erro")
+                print("[data]: URLSessionError")
                 fulfillCompetionOnMainThread(.failure(NetworkError.urlSessionError))
             }
         })
         
+        return task
+    }
+    
+    func objestTask<T: Decodable>(for request: URLRequest, completion: @escaping(Result<T, Error>)->Void) -> URLSessionTask {
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let task = data(for: request) { (result: Result<Data, Error>) in
+            switch(result) {
+            case .success(let data):
+                do {
+                    let data = try decoder.decode(T.self, from: data)
+                    completion(.success(data))
+                } catch {
+                    print("[dataTask] DecodingError: \(error.localizedDescription), Data: \(String(data: data, encoding: .utf8) ?? "")")
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print("[dataTask]: NetworkError: \(error.localizedDescription)")
+                completion(.failure(error))
+            }
+        }
         return task
     }
 }
