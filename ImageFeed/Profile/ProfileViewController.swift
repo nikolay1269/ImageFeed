@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
@@ -47,7 +48,7 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = userInfo["URL"] as? String,
             let url = URL(string: profileImageURL)
         else { return }
-        //TODO [Sprint 11] Обновите аватар, используя Kingfisher
+        profileImageView?.kf.setImage(with: url)
     }
     
     override func viewDidLoad() {
@@ -55,7 +56,7 @@ final class ProfileViewController: UIViewController {
         
         if let avatarURL = ProfileImageService.shared.avatarURL,
            let url = URL(string: avatarURL) {
-            //TODO [Sprint 11] Обновите аватар, если нотификация была опубликована до того, как мы подписались
+            profileImageView?.kf.setImage(with: url)
         }
     
         profileImageView = addProfileImageView()

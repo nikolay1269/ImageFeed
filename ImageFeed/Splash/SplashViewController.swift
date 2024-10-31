@@ -91,13 +91,11 @@ extension SplashViewController: AuthViewControllerDelegate {
                     case .success(let imageURL):
                         print("Image url:\(imageURL) loaded succesfully")
                     case .failure(let error):
-                        //TODO: Показать ошибку получения профиля
-                        print(error)
+                        print("[SplashViewController-fetchProfile]: Error: \(error)")
                     }
                 }
             case .failure(let error):
-                //TODO: Показать ошибку получения профиля
-                print(error)
+                print("[SplashViewController-fetchProfile]: Error: \(error)")
             }
         }
     }

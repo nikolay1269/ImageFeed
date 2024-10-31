@@ -26,7 +26,7 @@ final class ProfileImageService {
     
     func makeProfileImageRequest(username: String, authToken: String) -> URLRequest? {
         
-        guard let url = URL(string: "/users/:\(username)", relativeTo: Constants.defaultBaseURL) else {
+        guard let url = URL(string: "/users/\(username)", relativeTo: Constants.defaultBaseURL) else {
 
             assertionFailure("Failed to create URL")
             return nil
