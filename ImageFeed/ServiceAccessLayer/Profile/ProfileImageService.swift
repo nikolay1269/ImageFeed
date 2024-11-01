@@ -56,7 +56,7 @@ final class ProfileImageService {
         }
         
         lastUsername = username
-        guard let token = OAuth2TokenStorage.shared.token, let request = makeProfileImageRequest(username: username, authToken: token) else {
+        guard let token = OAuth2TokenStorage.shared.token, token.count > 0, let request = makeProfileImageRequest(username: username, authToken: token) else {
             
             print("[fetchProfileImageURL]: Invalid request with username: \(username)")
             completion(.failure(AuthServiceError.invalidRequest))

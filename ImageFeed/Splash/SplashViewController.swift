@@ -14,7 +14,7 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let token = OAuth2TokenStorage.shared.token {
+        if let token = OAuth2TokenStorage.shared.token, token.count > 0 {
             fetchProfile(token)
         } else {
             performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
@@ -69,7 +69,7 @@ extension SplashViewController: AuthViewControllerDelegate {
     func didAuthenticate(_ vc: AuthViewController) {
         vc.dismiss(animated: true)
         
-        guard let token = OAuth2TokenStorage.shared.token else {
+        guard let token = OAuth2TokenStorage.shared.token, token.count > 0 else {
             return
         }
         
