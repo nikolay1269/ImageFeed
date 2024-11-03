@@ -54,12 +54,11 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        profileImageView = addProfileImageView()
         if let avatarURL = ProfileImageService.shared.avatarURL,
            let url = URL(string: avatarURL) {
             profileImageView?.kf.setImage(with: url)
         }
-    
-        profileImageView = addProfileImageView()
         fullNameLabel = addFullNameLabel()
         emailLabel = addEmailLabel()
         descriptionLabel = addDescriptionLabel()
