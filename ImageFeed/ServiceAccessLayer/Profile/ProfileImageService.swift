@@ -7,14 +7,6 @@
 
 import Foundation
 
-struct ProfileImage: Codable {
-    let small: String
-}
-
-struct UserResult: Codable {
-    let profileImage: ProfileImage
-}
-
 final class ProfileImageService {
     
     static let shared = ProfileImageService()

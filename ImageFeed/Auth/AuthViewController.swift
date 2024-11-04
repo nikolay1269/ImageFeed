@@ -61,16 +61,20 @@ extension AuthViewController: WebViewViewControllerDelegate {
                 self.delegate?.didAuthenticate(self)
                 vc.dismiss(animated: true)
             case .failure:
-                let alert = UIAlertController(title: "Что-то пошло не так",
-                                              message: "Не удалось войти в систему",
-                                              preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .default) { action in
-                    vc.dismiss(animated: true)
-                }
-                alert.addAction(action)
-                vc.present(alert, animated: true)
+                self.showErorrAlert(vc: vc)
             }
         }
+    }
+    
+    private func showErorrAlert(vc: UIViewController) {
+        let alert = UIAlertController(title: "Что-то пошло не так",
+                                      message: "Не удалось войти в систему",
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { action in
+            vc.dismiss(animated: true)
+        }
+        alert.addAction(action)
+        vc.present(alert, animated: true)
     }
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
