@@ -17,7 +17,7 @@ enum Constants {
     static let codeFieldName = "code"
 }
 
-enum AuthServiceError: Error {
+enum NetworkServicesError: Error {
     case invalidRequest
 }
 

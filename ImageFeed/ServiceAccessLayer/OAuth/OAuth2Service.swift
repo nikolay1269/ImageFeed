@@ -41,13 +41,13 @@ final class OAuth2Service {
                 task?.cancel()
             } else {
                 print("[fetchOAuthToken]: Dublicate request with same code: \(code)")
-                completion(.failure(AuthServiceError.invalidRequest))
+                completion(.failure(NetworkServicesError.invalidRequest))
                 return
             }
         } else {
             if lastCode == code {
                 print("[fetchOAuthToken]: Task is nil with the same code: \(code)")
-                completion(.failure(AuthServiceError.invalidRequest))
+                completion(.failure(NetworkServicesError.invalidRequest))
                 return
             }
         }
@@ -56,7 +56,7 @@ final class OAuth2Service {
             let request = makeOAuthTokenRequest(code: code)
         else {
             print("[fetchOAuthToken]: Invalid request with code: \(code)")
-            completion(.failure(AuthServiceError.invalidRequest))
+            completion(.failure(NetworkServicesError.invalidRequest))
             return
         }
         

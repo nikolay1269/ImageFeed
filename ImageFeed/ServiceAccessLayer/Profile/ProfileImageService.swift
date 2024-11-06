@@ -38,12 +38,12 @@ final class ProfileImageService {
                 task?.cancel()
             } else {
                 print("[fetchProfileImageURL]: Dublicate request with the same username: \(username)")
-                completion(.failure(AuthServiceError.invalidRequest))
+                completion(.failure(NetworkServicesError.invalidRequest))
             }
         } else {
             if lastUsername == username {
                 print("[fetchProfileImageURL]: Task is nil with the same username: \(username)")
-                completion(.failure(AuthServiceError.invalidRequest))
+                completion(.failure(NetworkServicesError.invalidRequest))
             }
         }
         
@@ -51,7 +51,7 @@ final class ProfileImageService {
         guard let token = OAuth2TokenStorage.shared.token, token.count > 0, let request = makeProfileImageRequest(username: username, authToken: token) else {
             
             print("[fetchProfileImageURL]: Invalid request with username: \(username)")
-            completion(.failure(AuthServiceError.invalidRequest))
+            completion(.failure(NetworkServicesError.invalidRequest))
             return
         }
         

@@ -42,19 +42,19 @@ final class ProfileService {
                 task?.cancel()
             } else {
                 print("[fetchProfile]: Dublicate request with the same token: \(token)")
-                completion(.failure(AuthServiceError.invalidRequest))
+                completion(.failure(NetworkServicesError.invalidRequest))
             }
         } else {
             if lastToken == token {
                 print("[fetchProfile]: Task is nil with the same token: \(token)")
-                completion(.failure(AuthServiceError.invalidRequest))
+                completion(.failure(NetworkServicesError.invalidRequest))
             }
         }
         lastToken = token
         guard let request = makeProfileRequest(authToken: token) else {
             
             print("[fetchProfile]: Invalid request with token: \(token)")
-            completion(.failure(AuthServiceError.invalidRequest))
+            completion(.failure(NetworkServicesError.invalidRequest))
             return
         }
         

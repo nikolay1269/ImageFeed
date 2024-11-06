@@ -102,4 +102,13 @@ extension ImagesListViewController: UITableViewDelegate {
         let cellHeight = image.size.height * scale + imageInsets.bottom + imageInsets.top
         return cellHeight
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if (indexPath.row + 1 == photosNames.count) {
+            ImageListService.shared.fetchPhotosNextPage { result in
+                
+            }
+        }
+    }
 }
