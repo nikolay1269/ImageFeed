@@ -106,9 +106,8 @@ extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         if (indexPath.row + 1 == photosNames.count) {
-            ImageListService.shared.fetchPhotosNextPage { result in
-                
-            }
+            let imageListService = ImageListService()
+            imageListService.fetchPhotosNextPage()
         }
     }
 }
