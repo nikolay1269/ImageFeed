@@ -10,6 +10,7 @@
 		F304EEF52CD8A0FC000F4695 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F304EEF42CD8A0FC000F4695 /* ProfileImage.swift */; };
 		F304EEF72CD8A122000F4695 /* UserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F304EEF62CD8A122000F4695 /* UserResult.swift */; };
 		F30D0E6C2C69EB8A00D99674 /* UILabel+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30D0E6B2C69EB8A00D99674 /* UILabel+Font.swift */; };
+		F30D4EEE2CDCDA320077ED02 /* String+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30D4EED2CDCDA320077ED02 /* String+Date.swift */; };
 		F30DEDF82C71CFFD0085F063 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30DEDF72C71CFFD0085F063 /* WebViewViewController.swift */; };
 		F33907102CC11C1B00C596AE /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339070F2CC11C1B00C596AE /* UIBlockingProgressHUD.swift */; };
 		F33907132CC1205C00C596AE /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33907122CC1205C00C596AE /* ProfileService.swift */; };
@@ -38,7 +39,7 @@
 		F3D7832B2C5147DB00E24228 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7832A2C5147DB00E24228 /* SingleImageViewController.swift */; };
 		F3D8EC5E2CD8EFDE001C4248 /* PhotoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D8EC5D2CD8EFDE001C4248 /* PhotoResult.swift */; };
 		F3D8EC602CD8EFE9001C4248 /* UrlsResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D8EC5F2CD8EFE9001C4248 /* UrlsResult.swift */; };
-		F3DFD8932CA032BF00ED5CF9 /* UISession+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DFD8922CA032BF00ED5CF9 /* UISession+Data.swift */; };
+		F3DFD8932CA032BF00ED5CF9 /* URLSession+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DFD8922CA032BF00ED5CF9 /* URLSession+Data.swift */; };
 		F3DFD8952CA03CB600ED5CF9 /* OAuthTokenResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DFD8942CA03CB600ED5CF9 /* OAuthTokenResponseBody.swift */; };
 		F3DFD8972CA043CB00ED5CF9 /* OAuth2TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DFD8962CA043CB00ED5CF9 /* OAuth2TokenStorage.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,7 @@
 		F304EEF42CD8A0FC000F4695 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		F304EEF62CD8A122000F4695 /* UserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResult.swift; sourceTree = "<group>"; };
 		F30D0E6B2C69EB8A00D99674 /* UILabel+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Font.swift"; sourceTree = "<group>"; };
+		F30D4EED2CDCDA320077ED02 /* String+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Date.swift"; sourceTree = "<group>"; };
 		F30DEDF72C71CFFD0085F063 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		F339070F2CC11C1B00C596AE /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		F33907122CC1205C00C596AE /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
@@ -74,7 +76,7 @@
 		F3D7832A2C5147DB00E24228 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		F3D8EC5D2CD8EFDE001C4248 /* PhotoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResult.swift; sourceTree = "<group>"; };
 		F3D8EC5F2CD8EFE9001C4248 /* UrlsResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlsResult.swift; sourceTree = "<group>"; };
-		F3DFD8922CA032BF00ED5CF9 /* UISession+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISession+Data.swift"; sourceTree = "<group>"; };
+		F3DFD8922CA032BF00ED5CF9 /* URLSession+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Data.swift"; sourceTree = "<group>"; };
 		F3DFD8942CA03CB600ED5CF9 /* OAuthTokenResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponseBody.swift; sourceTree = "<group>"; };
 		F3DFD8962CA043CB00ED5CF9 /* OAuth2TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2TokenStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,7 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				F30D0E6B2C69EB8A00D99674 /* UILabel+Font.swift */,
-				F3DFD8922CA032BF00ED5CF9 /* UISession+Data.swift */,
+				F3DFD8922CA032BF00ED5CF9 /* URLSession+Data.swift */,
+				F30D4EED2CDCDA320077ED02 /* String+Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30D4EEE2CDCDA320077ED02 /* String+Date.swift in Sources */,
 				F30DEDF82C71CFFD0085F063 /* WebViewViewController.swift in Sources */,
 				F3B46A9E2C38079C004E0DA2 /* ImagesListViewController.swift in Sources */,
 				F3AA02152C43B67C000AB45D /* ImageListCell.swift in Sources */,
@@ -327,7 +331,7 @@
 				F33907132CC1205C00C596AE /* ProfileService.swift in Sources */,
 				F34B70322C6B8AA900FFD22E /* Constants.swift in Sources */,
 				F3DFD8972CA043CB00ED5CF9 /* OAuth2TokenStorage.swift in Sources */,
-				F3DFD8932CA032BF00ED5CF9 /* UISession+Data.swift in Sources */,
+				F3DFD8932CA032BF00ED5CF9 /* URLSession+Data.swift in Sources */,
 				F3B6466A2C9ECFAA001B2034 /* NetworkClient.swift in Sources */,
 				F39C182E2CD8B66300F78AC5 /* ImageListService.swift in Sources */,
 				F33907152CC1221100C596AE /* Profile.swift in Sources */,

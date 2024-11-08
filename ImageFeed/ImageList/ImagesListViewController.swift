@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ImagesListViewController: UIViewController {
     
@@ -13,9 +14,30 @@ class ImagesListViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     private let photosNames: [String] = Array(0..<20).map{ "\($0)" }
     
+    var photos: [Photo] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        ImageListService.shared.fetchPhotosNextPage()
+        NotificationCenter.default.addObserver(forName: ImageListService.didChangedNotification, object: nil, queue: .main) { [weak self] _ in
+            
+            self?.updateTableViewAnimated()
+        }
         initTableView()
+    }
+    
+    private func updateTableViewAnimated() {
+        let oldCount = photos.count
+        let newCount = ImageListService.shared.photos.count
+        photos = ImageListService.shared.photos
+        if oldCount != newCount {
+            tableView.performBatchUpdates {
+                let indexPaths = (oldCount..<newCount).map { i in
+                    IndexPath(row: i, section: 0)
+                }
+                tableView.insertRows(at: indexPaths, with: .automatic)
+            }
+        }
     }
     
     private func initTableView() {
@@ -26,9 +48,12 @@ class ImagesListViewController: UIViewController {
     
     private func configCell(for cell: ImageListCell, indexPath: IndexPath) {
         
-        if let image = UIImage(named: photosNames[indexPath.row]) {
-            cell.photoImageView.image = image
-        }
+        let url = URL(string: photos[indexPath.row].thumbImageURL)
+        let placeholderImage = UIImage(named: "Stub")
+        cell.photoImageView.kf.setImage(with: url, placeholder: placeholderImage, completionHandler: { [weak self] result in
+            self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+        })
+        cell.photoImageView.kf.indicatorType = .activity
         cell.dateLabel.text = dateFormatter.string(from: Date())
         cell.dateLabel.setTextSpacingBy(value: -0.08)
         if indexPath.row % 2 == 0 {
@@ -50,7 +75,7 @@ class ImagesListViewController: UIViewController {
 extension ImagesListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return photosNames.count
+        return photos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -91,11 +116,11 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+
         guard let image = UIImage(named: photosNames[indexPath.row]) else {
             return 0
         }
-        
+
         let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
         let scale = imageViewWidth / image.size.width
@@ -105,10 +130,8 @@ extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        if (indexPath.row + 1 == photosNames.count) {
-            ImageListService.shared.fetchPhotosNextPage { result in
-                
-            }
+        if (indexPath.row + 1 == photos.count) {
+            ImageListService.shared.fetchPhotosNextPage()
         }
     }
 }
