@@ -25,4 +25,15 @@ struct Photo {
         largeImageURL = photoRusult.urls.full
         isLiked = photoRusult.likedByUser
     }
+    
+    init(id: String, size: CGSize, createdAt: Date?, welcomeDescription: String?, thumbnailURL: String, largeImageURL: String, isLiked: Bool) {
+        
+        self.id = id
+        self.size = size
+        self.createdAt = createdAt
+        self.welcomeDescription = welcomeDescription
+        self.thumbImageURL = thumbnailURL
+        self.largeImageURL = largeImageURL
+        self.isLiked = isLiked
+    }
 }

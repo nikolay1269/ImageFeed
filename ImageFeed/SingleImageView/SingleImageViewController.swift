@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class SingleImageViewController: UIViewController {
 
@@ -18,19 +19,50 @@ final class SingleImageViewController: UIViewController {
         }
     }
     
+    var fullImageURL: String?
+    
     @IBOutlet private var singleImageView: UIImageView!
     @IBOutlet private var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        singleImageView.image = image
-        if let size = image?.size {
-            singleImageView.frame.size = size
-        }
+        
+        guard let fullImageURL = self.fullImageURL, let url = URL(string: fullImageURL), let placeholderImage = UIImage(named: "Stub") else { return }
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
-        guard let image = image else { return }
-        rescaleAndCenterImageInScrollView(image: image)
+        singleImageView.image = placeholderImage
+        singleImageView.frame.size = placeholderImage.size
+        rescaleAndCenterImageInScrollView(image: placeholderImage)
+        
+        UIBlockingProgressHUD.show()
+        singleImageView.kf.setImage(with: url, placeholder: placeholderImage, completionHandler: { [weak self] result in
+        
+            UIBlockingProgressHUD.dismiss()
+            guard let self = self else { return }
+            
+            switch(result) {
+            case .success:
+                self.scrollView.setZoomScale(1.0, animated: false)
+                self.scrollView.contentOffset = CGPoint.zero
+                guard let image = self.singleImageView.image else { return }
+                self.singleImageView.frame.size = image.size
+                self.rescaleAndCenterImageInScrollView(image: image)
+            case .failure(let error):
+                self.showErorrAlert(error: error)
+            }
+        })
+    }
+    
+    private func showErorrAlert(error: Error) {
+        let alert = UIAlertController(title: "Что-то пошло не так",
+                                      message: "Не удалось загрузить полноразмерную картинку: \(error)",
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { [weak self] action in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true)
     }
     
     @IBAction private func didTapBackButton() {

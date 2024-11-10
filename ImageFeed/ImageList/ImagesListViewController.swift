@@ -12,7 +12,6 @@ class ImagesListViewController: UIViewController {
     
     private let showSingleImageIdentifier = "ShowSingleImage"
     @IBOutlet private var tableView: UITableView!
-    private let photosNames: [String] = Array(0..<20).map{ "\($0)" }
     
     var photos: [Photo] = []
     
@@ -50,17 +49,14 @@ class ImagesListViewController: UIViewController {
         
         let url = URL(string: photos[indexPath.row].thumbImageURL)
         let placeholderImage = UIImage(named: "Stub")
+        cell.delegate = self
         cell.photoImageView.kf.setImage(with: url, placeholder: placeholderImage, completionHandler: { [weak self] result in
             self?.tableView.reloadRows(at: [indexPath], with: .automatic)
         })
         cell.photoImageView.kf.indicatorType = .activity
         cell.dateLabel.text = dateFormatter.string(from: Date())
         cell.dateLabel.setTextSpacingBy(value: -0.08)
-        if indexPath.row % 2 == 0 {
-            cell.likeButton.setImage(UIImage(named: "Favorite_active"), for: .normal)
-        } else {
-            cell.likeButton.setImage(UIImage(named: "Favorite_inactive"), for: .normal)
-        }
+        setIsLike(photos[indexPath.row].isLiked, cell: cell)
     }
     
     private lazy var dateFormatter: DateFormatter = {
@@ -101,8 +97,8 @@ extension ImagesListViewController: UITableViewDataSource {
                 return
             }
             
-            let image = UIImage(named: photosNames[indexPath.row])
-            viewcontroller.image = image
+            let photo = self.photos[indexPath.row]
+            viewcontroller.fullImageURL = photo.largeImageURL
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -117,9 +113,7 @@ extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        guard let image = UIImage(named: photosNames[indexPath.row]) else {
-            return 0
-        }
+        guard let cell = tableView.cellForRow(at: indexPath) as? ImageListCell, let image = cell.photoImageView.image else { return tableView.estimatedRowHeight }
 
         let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
@@ -133,5 +127,49 @@ extension ImagesListViewController: UITableViewDelegate {
         if (indexPath.row + 1 == photos.count) {
             ImageListService.shared.fetchPhotosNextPage()
         }
+    }
+}
+
+extension ImagesListViewController: ImageListCellDelegate {
+    
+    func imageListCellDidTapLike(_ cell: ImageListCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let photo = photos[indexPath.row]
+        UIBlockingProgressHUD.show()
+        ImageListService.shared.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            switch(result) {
+            case .success():
+                self.photos = ImageListService.shared.photos
+                self.setIsLike(!photo.isLiked, cell: cell)
+                UIBlockingProgressHUD.dismiss()
+            case .failure(let error):
+                print("[imageListCellDidTapLike]: Error: \(error)")
+                UIBlockingProgressHUD.dismiss()
+                self.showErorrAlert()
+            }
+        }
+    }
+    
+    private func setIsLike(_ isLike: Bool, cell: ImageListCell) {
+        if(isLike) {
+            cell.likeButton?.setImage(UIImage(named: "Favorite_active"), for: .normal)
+        } else {
+            cell.likeButton?.setImage(UIImage(named: "Favorite_inactive"), for: .normal)
+        }
+    }
+    
+    private func showErorrAlert() {
+        let alert = UIAlertController(title: "Что-то пошло не так",
+                                      message: "Не удалось изменить состояние favorite",
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { [weak self] action in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true)
     }
 }
