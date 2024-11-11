@@ -19,7 +19,8 @@ struct Photo {
     init(photoRusult: PhotoResult) {
         id = photoRusult.id
         size = CGSize(width: photoRusult.width, height: photoRusult.height)
-        createdAt = Date()
+        let dateFormatter = ISO8601DateFormatter()
+        createdAt = dateFormatter.date(from: photoRusult.createdAt)
         welcomeDescription = photoRusult.description
         thumbImageURL = photoRusult.urls.thumb
         largeImageURL = photoRusult.urls.full

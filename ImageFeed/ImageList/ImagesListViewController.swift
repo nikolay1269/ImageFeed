@@ -47,21 +47,26 @@ class ImagesListViewController: UIViewController {
     
     private func configCell(for cell: ImageListCell, indexPath: IndexPath) {
         
-        let url = URL(string: photos[indexPath.row].thumbImageURL)
+        let photo = photos[indexPath.row]
+        let url = URL(string: photo.thumbImageURL)
         let placeholderImage = UIImage(named: "Stub")
         cell.delegate = self
         cell.photoImageView.kf.setImage(with: url, placeholder: placeholderImage, completionHandler: { [weak self] result in
             self?.tableView.reloadRows(at: [indexPath], with: .automatic)
         })
         cell.photoImageView.kf.indicatorType = .activity
-        cell.dateLabel.text = dateFormatter.string(from: Date())
+        if let date = photo.createdAt {
+            cell.dateLabel.text = dateFormatter.string(from: date)
+        } else {
+            cell.dateLabel.text = ""
+        }
         cell.dateLabel.setTextSpacingBy(value: -0.08)
-        setIsLike(photos[indexPath.row].isLiked, cell: cell)
+        setIsLike(photo.isLiked, cell: cell)
     }
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
+        formatter.dateStyle = .medium
         formatter.timeStyle = .none
         return formatter
     }()

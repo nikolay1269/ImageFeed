@@ -81,7 +81,6 @@ final class ImageListService {
             case .success(let photoResults):
                 for photoResult in photoResults {
                     var photo = Photo(photoRusult: photoResult)
-                    photo.createdAt = photoResult.createdAt.dateFromString()
                     self?.photos.append(photo)
                 }
                 self?.lastLoadedPage = nextPage
