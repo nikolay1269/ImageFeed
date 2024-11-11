@@ -25,19 +25,11 @@ final class ProfileViewController: UIViewController {
         addObserver()
     }
     
-    deinit {
-        removeObserver()
-    }
-    
     private func addObserver() {
         NotificationCenter.default.addObserver(self, selector:
                                                     #selector(updateAvatar(notification:)),
                                                  name: ProfileImageService.didChangeNotification,
                                                  object: nil)
-    }
-    
-    private func removeObserver() {
-        NotificationCenter.default.removeObserver(self, name: ProfileImageService.didChangeNotification, object: nil)
     }
     
     @objc

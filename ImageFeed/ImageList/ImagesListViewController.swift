@@ -143,23 +143,23 @@ extension ImagesListViewController: ImageListCellDelegate {
         UIBlockingProgressHUD.show()
         ImageListService.shared.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self] result in
             
+            UIBlockingProgressHUD.dismiss()
+            
             guard let self = self else { return }
             
             switch(result) {
             case .success():
                 self.photos = ImageListService.shared.photos
                 self.setIsLike(!photo.isLiked, cell: cell)
-                UIBlockingProgressHUD.dismiss()
             case .failure(let error):
                 print("[imageListCellDidTapLike]: Error: \(error)")
-                UIBlockingProgressHUD.dismiss()
                 self.showErorrAlert()
             }
         }
     }
     
     private func setIsLike(_ isLike: Bool, cell: ImageListCell) {
-        if(isLike) {
+        if isLike {
             cell.likeButton?.setImage(UIImage(named: "Favorite_active"), for: .normal)
         } else {
             cell.likeButton?.setImage(UIImage(named: "Favorite_inactive"), for: .normal)

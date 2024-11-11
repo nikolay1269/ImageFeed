@@ -15,12 +15,12 @@ struct Photo {
     let thumbImageURL: String
     let largeImageURL: String
     let isLiked: Bool
+    static let dateFormatter = ISO8601DateFormatter()
     
     init(photoRusult: PhotoResult) {
         id = photoRusult.id
         size = CGSize(width: photoRusult.width, height: photoRusult.height)
-        let dateFormatter = ISO8601DateFormatter()
-        createdAt = dateFormatter.date(from: photoRusult.createdAt)
+        createdAt = Photo.dateFormatter.date(from: photoRusult.createdAt)
         welcomeDescription = photoRusult.description
         thumbImageURL = photoRusult.urls.thumb
         largeImageURL = photoRusult.urls.full
