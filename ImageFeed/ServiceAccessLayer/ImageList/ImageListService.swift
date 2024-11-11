@@ -139,4 +139,14 @@ final class ImageListService {
             self.photos[index] = newPhoto
         }
     }
+    
+    func clearPhotos() {
+        photos = []
+        lastLoadedPage = nil
+        lastLoadingPage = 0
+        changeLikeTask?.cancel()
+        changeLikeTask = nil
+        photosNextPageTask?.cancel()
+        photosNextPageTask = nil
+    }
 }
