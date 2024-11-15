@@ -8,62 +8,33 @@
 import UIKit
 import Kingfisher
 
-final class ProfileViewController: UIViewController {
+protocol ProfileViewControllerProtocol: AnyObject {
+    var presenter: ProfilePresenterProtocol? { get set}
+    func loadImageProfile(url: URL)
+    func updateProfileDetails(profile: Profile)
+}
+
+final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
     
     private var fullNameLabel: UILabel?
     private var emailLabel: UILabel?
     private var profileImageView: UIImageView?
     private var descriptionLabel: UILabel?
-    
-    override init(nibName: String?, bundle: Bundle?) {
-        super.init(nibName: nibName, bundle: bundle)
-        addObserver()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        addObserver()
-    }
-    
-    private func addObserver() {
-        NotificationCenter.default.addObserver(self, selector:
-                                                    #selector(updateAvatar(notification:)),
-                                                 name: ProfileImageService.didChangeNotification,
-                                                 object: nil)
-    }
-    
-    @objc
-    private func updateAvatar(notification: Notification) {
-        guard
-            isViewLoaded,
-            let userInfo = notification.userInfo,
-            let profileImageURL = userInfo["URL"] as? String,
-            let url = URL(string: profileImageURL)
-        else { return }
-        profileImageView?.kf.setImage(with: url)
-    }
+    var presenter: ProfilePresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         profileImageView = addProfileImageView()
-        if let avatarURL = ProfileImageService.shared.avatarURL,
-           let url = URL(string: avatarURL) {
-            profileImageView?.kf.setImage(with: url)
-        }
         fullNameLabel = addFullNameLabel()
         emailLabel = addEmailLabel()
         descriptionLabel = addDescriptionLabel()
         addExitButton()
-        if let profile = ProfileService.shared.profile {
-            updateProfileDetails(profile: profile)
-        } else {
-            print("Profile information is empty")
-        }
+        presenter?.viewDidLoad()
     }
     
     private func addProfileImageView() -> UIImageView? {
-        let imageView = UIImageView(image: UIImage(named: "TestUserPhoto"))
+        let imageView = UIImageView(image: UIImage(named: "Stub"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
         let topAnchor = imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32)
@@ -78,7 +49,6 @@ final class ProfileViewController: UIViewController {
         let fullNameLabel = UILabel()
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(fullNameLabel)
-        fullNameLabel.text = "Екатерина Новикова"
         fullNameLabel.textColor = UIColor(named: "YPWhite")
         fullNameLabel.font = UIFont(name: "SF Pro Bold", size: 23)
         fullNameLabel.setTextSpacingBy(value: -0.08)
@@ -93,7 +63,6 @@ final class ProfileViewController: UIViewController {
         let emailLabel = UILabel()
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emailLabel)
-        emailLabel.text = "@ekaterina_nov"
         emailLabel.textColor = UIColor(named: "YPGray")
         emailLabel.font = UIFont(name: "SF Pro Regular", size: 13)
 
@@ -119,7 +88,6 @@ final class ProfileViewController: UIViewController {
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionLabel)
-        descriptionLabel.text = "Hello, world!"
         descriptionLabel.textColor = UIColor(named: "YPWhite")
         descriptionLabel.font = UIFont(name: "SF Pro Regular", size: 13)
         if let emailLabel = emailLabel {
@@ -129,7 +97,7 @@ final class ProfileViewController: UIViewController {
         return descriptionLabel
     }
     
-    private func updateProfileDetails(profile: Profile) {
+    func updateProfileDetails(profile: Profile) {
         
         self.fullNameLabel?.text = profile.name
         self.emailLabel?.text = profile.loginName
@@ -137,7 +105,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @IBAction private func exitButtonTapped() {
-        ProfileLogoutService.shared.logout()
+        presenter?.logout()
         switchToAuthScreen()
     }
     
@@ -150,5 +118,11 @@ final class ProfileViewController: UIViewController {
         
         let splashViewController = SplashViewController()
         window.rootViewController = splashViewController
+    }
+    
+    func loadImageProfile(url: URL) {
+        if isViewLoaded {
+            profileImageView?.kf.setImage(with: url)
+        }
     }
 }
