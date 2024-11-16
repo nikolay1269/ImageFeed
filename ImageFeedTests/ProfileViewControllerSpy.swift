@@ -9,6 +9,7 @@
 import Foundation
 
 final class ProfileViewControllerSpy: ProfileViewControllerProtocol {
+    
     var presenter: ImageFeed.ProfilePresenterProtocol?
     var loadImageProfileCalled: Bool = false
     var updateProfileDetails: Bool = false
@@ -17,7 +18,7 @@ final class ProfileViewControllerSpy: ProfileViewControllerProtocol {
         loadImageProfileCalled = true
     }
     
-    func updateProfileDetails(profile: ImageFeed.Profile) {
+    func updateProfileDetails(name: String, email: String, bio: String) {
         updateProfileDetails = true
     }
 }

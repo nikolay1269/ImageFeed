@@ -24,7 +24,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     
     func viewDidLoad() {
         guard let profile = ProfileService.shared.profile else { return }
-        view?.updateProfileDetails(profile: profile)
+        view?.updateProfileDetails(name: profile.name, email: profile.loginName, bio: profile.bio)
         guard let url = avatarURL() else { return }
         view?.loadImageProfile(url: url)
     }

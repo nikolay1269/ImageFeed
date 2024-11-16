@@ -19,7 +19,7 @@ final class SingleImageViewController: UIViewController {
         }
     }
     
-    var fullImageURL: String?
+    var fullImageURL: URL?
     
     @IBOutlet private var singleImageView: UIImageView!
     @IBOutlet private var scrollView: UIScrollView!
@@ -27,7 +27,7 @@ final class SingleImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let fullImageURL = self.fullImageURL, let url = URL(string: fullImageURL), let placeholderImage = UIImage(named: "Stub") else { return }
+        guard let url = self.fullImageURL, let placeholderImage = UIImage(named: "Stub") else { return }
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
         singleImageView.image = placeholderImage

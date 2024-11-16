@@ -11,7 +11,7 @@ import Kingfisher
 protocol ProfileViewControllerProtocol: AnyObject {
     var presenter: ProfilePresenterProtocol? { get set}
     func loadImageProfile(url: URL)
-    func updateProfileDetails(profile: Profile)
+    func updateProfileDetails(name: String, email: String, bio: String)
 }
 
 final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
@@ -97,11 +97,11 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         return descriptionLabel
     }
     
-    func updateProfileDetails(profile: Profile) {
+    func updateProfileDetails(name: String, email: String, bio: String) {
         
-        self.fullNameLabel?.text = profile.name
-        self.emailLabel?.text = profile.loginName
-        self.descriptionLabel?.text = profile.bio
+        self.fullNameLabel?.text = name
+        self.emailLabel?.text = email
+        self.descriptionLabel?.text = bio
     }
     
     @IBAction private func exitButtonTapped() {
