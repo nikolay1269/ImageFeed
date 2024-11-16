@@ -24,12 +24,13 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         
         profileImageView = addProfileImageView()
         fullNameLabel = addFullNameLabel()
         emailLabel = addEmailLabel()
         descriptionLabel = addDescriptionLabel()
         addExitButton()
+        view.backgroundColor = UIColor(red: 26.0 / 255.0, green: 27.0 / 255.0, blue: 34.0 / 255.0, alpha: 1.0)
         presenter?.viewDidLoad()
     }
     
