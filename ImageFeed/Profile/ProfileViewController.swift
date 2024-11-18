@@ -25,19 +25,11 @@ final class ProfileViewController: UIViewController {
         addObserver()
     }
     
-    deinit {
-        removeObserver()
-    }
-    
     private func addObserver() {
         NotificationCenter.default.addObserver(self, selector:
                                                     #selector(updateAvatar(notification:)),
                                                  name: ProfileImageService.didChangeNotification,
                                                  object: nil)
-    }
-    
-    private func removeObserver() {
-        NotificationCenter.default.removeObserver(self, name: ProfileImageService.didChangeNotification, object: nil)
     }
     
     @objc
@@ -144,5 +136,19 @@ final class ProfileViewController: UIViewController {
         self.descriptionLabel?.text = profile.bio
     }
     
-    @IBAction private func exitButtonTapped() {}
+    @IBAction private func exitButtonTapped() {
+        ProfileLogoutService.shared.logout()
+        switchToAuthScreen()
+    }
+    
+    private func switchToAuthScreen() {
+        
+        guard let window = UIApplication.shared.windows.first else {
+            assertionFailure("Invalid window configuration")
+            return
+        }
+        
+        let splashViewController = SplashViewController()
+        window.rootViewController = splashViewController
+    }
 }

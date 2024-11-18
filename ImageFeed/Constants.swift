@@ -17,7 +17,7 @@ enum Constants {
     static let codeFieldName = "code"
 }
 
-enum AuthServiceError: Error {
+enum NetworkServicesError: Error {
     case invalidRequest
 }
 
@@ -29,13 +29,13 @@ struct Queue<Element> {
     }
     
     mutating func removeFront() -> Element {
-        return items.removeFirst()
+        items.removeFirst()
     }
 }
 
 extension Queue {
     
     var frontItem: Element? {
-        return items.isEmpty ? nil: items[0]
+        items.isEmpty ? nil: items[0]
     }
 }
