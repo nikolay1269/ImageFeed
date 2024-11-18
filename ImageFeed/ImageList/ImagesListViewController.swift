@@ -115,8 +115,11 @@ extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        if indexPath.row + 1 == presenter?.photosCount() {
-            presenter?.loadNextPhotosPage()
+        let testMode =  ProcessInfo.processInfo.arguments.contains("testMode")
+        if !testMode {
+            if indexPath.row + 1 == presenter?.photosCount() {
+                presenter?.loadNextPhotosPage()
+            }
         }
     }
 }
@@ -130,7 +133,7 @@ extension ImagesListViewController: ImageListCellDelegate {
             UIBlockingProgressHUD.dismiss()
             
             guard let self = self else { return }
-            
+             
             switch(result) {
             case .success():
                 guard let cell = cell else { return }
