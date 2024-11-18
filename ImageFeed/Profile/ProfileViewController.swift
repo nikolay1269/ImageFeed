@@ -29,7 +29,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         fullNameLabel = addFullNameLabel()
         emailLabel = addEmailLabel()
         descriptionLabel = addDescriptionLabel()
-        addExitButton()
+        addLogoutButton()
         view.backgroundColor = UIColor(red: 26.0 / 255.0, green: 27.0 / 255.0, blue: 34.0 / 255.0, alpha: 1.0)
         presenter?.viewDidLoad()
     }
@@ -74,8 +74,8 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         return emailLabel
     }
     
-    private func addExitButton() {
-        let exitButton = UIButton.systemButton(with: UIImage(named: "Exit") ?? UIImage(), target: self, action: #selector(exitButtonTapped))
+    private func addLogoutButton() {
+        let exitButton = UIButton.systemButton(with: UIImage(named: "Exit") ?? UIImage(), target: self, action: #selector(logoutButtonTapped))
         exitButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(exitButton)
         exitButton.tintColor = .red
@@ -105,9 +105,20 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         self.descriptionLabel?.text = bio
     }
     
-    @IBAction private func exitButtonTapped() {
-        presenter?.logout()
-        switchToAuthScreen()
+    @IBAction private func logoutButtonTapped() {
+        
+        let alert = UIAlertController(title: "Выход из профиля",
+                                      message: "Вы уверены, что хотите выйти?",
+                                      preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Да", style: .default) { [weak self] action in
+            guard let self = self else { return}
+            self.presenter?.logout()
+            self.switchToAuthScreen()
+        }
+        let noAction = UIAlertAction(title: "Нет", style: .default)
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        self.present(alert, animated: true)
     }
     
     private func switchToAuthScreen() {

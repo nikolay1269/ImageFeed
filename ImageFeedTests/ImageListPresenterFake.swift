@@ -13,7 +13,6 @@ final class ImageListPresenterFake: ImageListPresenterProtocol {
     var photos: [Photo] = []
     
     func viewDidLoad() {
-        
     }
     
     func changeLike(for index: Int, completion: @escaping (Result<Void, Error>, Bool) -> Void) {
@@ -27,14 +26,6 @@ final class ImageListPresenterFake: ImageListPresenterProtocol {
     }
     
     func loadNextPhotosPage() {
-//        let photo = Photo(id: "9s8uf09sd8",
-//                           size: CGSize(width: 100, height: 100),
-//                           createdAt: Date(),
-//                           welcomeDescription: "asdfsdf",
-//                           thumbnailURL: "https://thumbnailImage.ru",
-//                           largeImageURL: "https://largeImage.ru",
-//                           isLiked: false)
-//        photos = [photo]
     }
     
     func photosCount() -> Int {

@@ -49,8 +49,10 @@ final class ImageListPresenter: ImageListPresenterProtocol {
     func changeLike(for index: Int, completion: @escaping (Result<Void, Error>, Bool)->Void) {
         
         let photo = photos[index]
-        ImageListService.shared.changeLike(photoId: photo.id, isLike: !photo.isLiked) { result in
+        ImageListService.shared.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self] result in
             
+            guard let self = self else { return }
+            self.photos = ImageListService.shared.photos
             completion(result, !photo.isLiked)
         }
     }
