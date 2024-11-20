@@ -17,7 +17,7 @@ public protocol WebViewPresenterProtocol {
 final class WebViewPresenter: WebViewPresenterProtocol {
 
     weak var view: WebViewViewControllerProtocol?
-    var authHelper: AuthHelper
+    private var authHelper: AuthHelper
     
     init(authHelper: AuthHelper) {
         self.authHelper = authHelper
@@ -43,7 +43,6 @@ final class WebViewPresenter: WebViewPresenterProtocol {
     }
     
     func code(url: URL) -> String? {
-        
         authHelper.code(from: url)
     }
 }

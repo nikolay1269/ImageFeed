@@ -26,22 +26,22 @@ final class ImageListPresenterSpy: ImageListPresenterProtocol {
     }
     
     func photosCount() -> Int {
-        return 0
+        0
     }
     
     func photoThumbnailURLForIndex(_ index: Int) -> URL? {
-        return nil
+        nil
     }
     
     func photoIsLikedForIndex(_ index: Int) -> Bool {
-        return false
+        false
     }
     
     func photoCreatedAtDateTextForIndex(_ index: Int) -> String? {
-        return nil
+        nil
     }
     
     func photoLargeURLForIndex(_ index: Int) -> URL? {
-        return nil
+        nil
     }
 }

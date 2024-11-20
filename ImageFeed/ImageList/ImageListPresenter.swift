@@ -24,6 +24,13 @@ final class ImageListPresenter: ImageListPresenterProtocol {
     weak var view: ImageListViewControllerProtocol?
     var photos: [Photo] = []
     
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
     func viewDidLoad() {
         addObserver()
         loadNextPhotosPage()
@@ -47,6 +54,8 @@ final class ImageListPresenter: ImageListPresenterProtocol {
     }
     
     func changeLike(for index: Int, completion: @escaping (Result<Void, Error>, Bool)->Void) {
+        
+        guard index < photos.count else { return }
         
         let photo = photos[index]
         ImageListService.shared.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self] result in
@@ -83,13 +92,6 @@ final class ImageListPresenter: ImageListPresenterProtocol {
         }
         return dateFormatter.string(from: date)
     }
-    
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        return formatter
-    }()
     
     func photoLargeURLForIndex(_ index: Int) -> URL? {
         guard let url = URL(string: photos[index].largeImageURL) else {
