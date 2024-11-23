@@ -48,8 +48,17 @@ class ImagesListViewController: UIViewController & ImageListViewControllerProtoc
         let url = presenter?.photoThumbnailURLForIndex(indexPath.row)
         let placeholderImage = UIImage(named: "Stub")
         cell.delegate = self
-        cell.photoImageView.kf.setImage(with: url, placeholder: placeholderImage, completionHandler: { [weak self] result in
-            self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+        cell.imageState = .loading
+        cell.photoImageView.kf.setImage(with: url, placeholder: placeholderImage, completionHandler: { [weak self, weak cell] result in
+            guard let self = self, let cell = cell else { return }
+            switch(result) {
+            case .success(let imageResult):
+                cell.imageState = .loaded(imageResult.image)
+            case .failure(let error):
+                print(error)
+                cell.imageState = .error
+            }
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
         })
         cell.photoImageView.kf.indicatorType = .activity
         cell.dateLabel.text = presenter?.photoCreatedAtDateTextForIndex(indexPath.row)
